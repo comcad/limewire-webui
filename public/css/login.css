@@ -1,0 +1,161 @@
+/* ==========================================================================
+   LimeWire '08 — login page skin  (public/css/login.css)
+   Restyles qBittorrent's login screen to match the LimeWire frame:
+   blue XP-Luna chrome, green leaf + "LimeWire" wordmark, green button,
+   gold accents. Keeps every id/class that login.js depends on:
+   #main, #logo, #formplace, #loginform, .row, .login-input,
+   #username, #password, #loginButton, #error_msg, #noscript.
+   ========================================================================== */
+
+:root {
+  --lw-green:   #46b54a;
+  --lw-green-d: #2e8b34;
+  --lw-gold:    #f2c94c;
+  --lw-blue-1:  #3f7fd6;
+  --lw-blue-2:  #1e56b0;
+  --lw-ink:     #1c2b3a;
+  --lw-paper:   #eef3fa;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif;
+  color: var(--lw-ink);
+  /* XP-Luna desktop: glossy blue gradient + subtle top light */
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.35), transparent 55%),
+    linear-gradient(180deg, #4a86e0 0%, #2f6cc4 38%, #1c4f9e 100%);
+  background-attachment: fixed;
+  text-align: left;
+}
+
+/* ── centered window ───────────────────────────────────────────── */
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6vh 16px;
+  margin: 0;
+  text-align: center;
+}
+
+/* title: green wordmark instead of raw "qBittorrent WebUI" */
+#main > h1 {
+  margin: 0 0 14px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.35);
+}
+/* brand the product name: replace "qBittorrent WebUI" with "LimeWire" */
+#main > h1 { position: relative; }
+
+/* logo: the green leaf, framed in a soft white tile */
+#logo {
+  width: 96px;
+  height: 96px;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.92);
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.8);
+}
+#logo img {
+  width: 64px;
+  height: 64px;
+}
+
+/* ── card / form panel ─────────────────────────────────────────── */
+#formplace {
+  width: 100%;
+  max-width: 340px;
+  margin: 0;
+  padding: 20px 22px 22px;
+  text-align: left;
+  background: #fbfdff;
+  border: 1px solid rgba(0,0,0,.18);
+  border-top: 4px solid var(--lw-green);
+  border-radius: 12px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.30);
+}
+
+.row { margin-bottom: 12px; }
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #41505f;
+  text-transform: uppercase;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--lw-ink);
+  background: #fff;
+  border: 1px solid #b6c2d0;
+  border-radius: 7px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.08);
+}
+.login-input:focus {
+  outline: none;
+  border-color: var(--lw-green);
+  box-shadow: 0 0 0 3px rgba(70,181,74,.25);
+}
+
+/* green primary button */
+#loginButton {
+  width: 100%;
+  margin-top: 4px;
+  padding: 11px 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid var(--lw-green-d);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #66cf6f 0%, var(--lw-green) 45%, var(--lw-green-d) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 2px 4px rgba(0,0,0,.18);
+  text-shadow: 0 1px 1px rgba(0,0,0,.25);
+}
+#loginButton:hover { filter: brightness(1.05); }
+#loginButton:active { box-shadow: inset 0 2px 5px rgba(0,0,0,.35); }
+
+/* error message — red, centered under the form */
+#error_msg {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e23b3b;
+  text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  white-space: pre-wrap;
+  text-align: center;
+}
+
+/* noscript notice */
+#noscript {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto 16px;
+  padding: 12px 16px;
+  color: #fff;
+  background: rgba(0,0,0,.28);
+  border-left: 4px solid var(--lw-gold);
+  border-radius: 8px;
+  text-align: left;
+}
+#noscript h1 { margin: 0; font-size: 14px; }

@@ -1,0 +1,253 @@
+/* ==========================================================================
+   LimeWire '08 — qBittorrent v5.2.3 WebUI skin  (css/limewire.css)
+
+   qBittorrent v5 themes itself entirely through --color-* CSS variables
+   defined in :root (light) and :root.dark. This skin works by OVERRIDING
+   those variables — so it restyles the REAL, working UI (tabs, torrents
+   table, filters, properties, windows, status bar) in one reliable stroke,
+   then adds LimeWire-specific chrome (blue top bar, green filter highlight,
+   amber→orange progress bars, lime scrollbars) on top.
+
+   Palette sampled from the real LimeWire 4.18.3 (2008) UI:
+     blue title/status bars  #8ac5fe -> #3b92ea -> #2f84dd
+     lime-green brand accent #80ef54 / #46b54a / #609e67
+     silver/gray chrome      #f0f0f0 / #e4e9f4
+     progress amber -> orange #ffbc33 -> #ff7900
+
+   Loaded AFTER all stock stylesheets (index.html), so it wins the cascade.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------ base */
+:root,
+html:not(.dark) {
+  /* force a light (2008) look regardless of system dark mode */
+  color-scheme: light;
+}
+:root, html, body {
+  --color-text-default:        #1c2733;   /* main text (was 33% gray) */
+  --color-text-white:          #ffffff;
+  --color-text-disabled:       #9aa3ad;
+  --color-text-green:          #2f8f3a;   /* status "working" green */
+  --color-text-red:            #d23b3b;   /* error red */
+  --color-text-orange:         #e07b1a;   /* warning orange */
+  --color-text-blue:           #2f84dd;   /* links / info blue */
+
+  --color-background-primary:  #ffffff;   /* main content bg (was white) */
+  --color-background-default:  #eef2f7;   /* panels / default surfaces */
+  --color-background-popup:    #ffffff;   /* context menus / popups */
+  --color-background-hover:    #d6ecf8;   /* hover highlight -> lime-tinted blue */
+  --color-background-blue:     #3b92ea;   /* blue bars */
+  --color-accent-blue:         #3b92ea;   /* accent -> LimeWire blue */
+  --color-border-default:      #c3c9d4;   /* borders */
+  --color-border-blue:         #2f84dd;
+
+  /* keep tracker status colors legible on light bg */
+  --color-tracker-disabled:    #8a92a0;
+  --color-tracker-not-contacted:#d98a1f;
+  --color-tracker-working:     #2f8f3a;
+  --color-tracker-updating:    #2f84dd;
+  --color-tracker-not-working: #d23b3b;
+
+  font-family: "Lucida Grande","Segoe UI",Tahoma,Verdana,Arial,sans-serif;
+}
+
+/* neutralize dark mode so the '08 look holds even if the user's OS is dark */
+html.dark, .dark {
+  --color-text-default:        #e8edf3;
+  --color-background-primary:  #12161d;
+  --color-background-default:  #1a212b;
+  --color-background-popup:    #1a212b;
+  --color-background-hover:    #245a7a;
+  --color-accent-blue:         #3b92ea;
+  --color-border-default:      #33404f;
+  color-scheme: dark;
+}
+
+/* ============================================================ LIMEWIRE CHROME */
+
+/* ---- top bar: blue gradient like the LimeWire title bar ---- */
+#desktopHeader, #topNav, #desktopNavbar {
+  background: linear-gradient(180deg, #8ac5fe 0%, #3b92ea 60%, #2f84dd 100%) !important;
+  border-bottom: 1px solid #1e5fb0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+}
+#desktopHeader a, #topNav a, #desktopNavbar a { color: #eaf3ff !important; }
+#desktopHeader .anchor img, #topNav img { opacity:.95; }
+
+/* ---- left filter sidebar: white + lime-green selection ---- */
+#Filters, #filters {
+  background: #ffffff;
+  border-right: 1px solid #c3c9d4;
+}
+html.dark #Filters, html.dark #filters { background:#12161d; }
+#Filters ul li a, #Filters li a, #filters a {
+  border-radius:3px;
+}
+#Filters ul li a:hover, #Filters li a:hover, #filters a:hover {
+  background:#d6ecf8 !important;
+}
+#Filters ul li a.selected, #Filters li a.selected, #filters .selected,
+#Filters ul li a.active, #Filters li a.active {
+  background: linear-gradient(90deg,#d6f0e0 0%,#cfe9f7 100%) !important;
+  border-left: 3px solid #46b54a !important;
+  font-weight:600;
+}
+#Filters img { filter: sepia(1) saturate(2.4) hue-rotate(55deg) brightness(.85); }
+
+/* ---- tabs: lime-green active underline ---- */
+.tab, [role="tab"], .tabs a, .tab-item {
+  border-bottom:2px solid transparent !important;
+}
+.tab:hover, [role="tab"]:hover, .tabs a:hover { border-bottom-color:#46b54a !important; }
+.tab.active, [role="tab"][aria-selected="true"], .tabs a.active, .tab.selected {
+  background:#ffffff !important;
+  border-bottom-color:#46b54a !important;
+  font-weight:600;
+}
+html.dark .tab.active, html.dark [role="tab"][aria-selected="true"] { background:#12161d !important; }
+
+/* ---- dynamic table: classic LimeWire list ---- */
+.dynamicTable thead th, table thead th, .tableHeader {
+  background:#eef2f7 !important;
+  color:#1c2733 !important;
+  border-bottom:1px solid #c3c9d4;
+  font-weight:600;
+  font-size:12px;
+}
+html.dark .dynamicTable thead th, html.dark table thead th { background:#1a212b !important; color:#e8edf3 !important; }
+.dynamicTable tbody tr:nth-child(even), table tbody tr:nth-child(even) { background:#f7fafd; }
+html.dark .dynamicTable tbody tr:nth-child(even) { background:#161c25; }
+.dynamicTable tbody tr:hover, table tbody tr:hover { background:#d6ecf8 !important; }
+html.dark .dynamicTable tbody tr:hover { background:#245a7a !important; }
+.dynamicTable tbody tr.selected, table tbody tr.selected,
+.dynamicTable tbody tr.active, table tbody tr.active {
+  background: linear-gradient(90deg,#cfe9f7 0%,#d6ecf8 100%) !important;
+  box-shadow: inset 3px 0 0 #46b54a;
+}
+html.dark .dynamicTable tbody tr.selected, html.dark table tbody tr.selected {
+  background:#245a7a !important;
+}
+
+/* ---- progress bars: amber -> orange ---- */
+.progressBar, .progress-bar, .progress, .progressBarContainer,
+.progressbar, .fill, .progress > div, .progress-bar > div {
+  background:#e7e7e7 !important;
+  border:1px solid #c3c9d4;
+  border-radius:3px;
+  overflow:hidden;
+}
+html.dark .progressBar, html.dark .progress-bar { background:#245a7a !important; border-color:#33404f; }
+.progressBar .progress, .progress-bar .fill,
+.progress > div, .progress-bar > div, .progressbar .fill {
+  background: linear-gradient(180deg,#ffbc33 0%,#ff7900 100%) !important;
+  border-radius:2px;
+}
+
+/* ---- buttons: silver with lime hover; primary = lime ---- */
+button, .btn, input[type="button"], input[type="submit"] {
+  background: linear-gradient(180deg,#fbfbfb 0%,#e8e8e8 100%) !important;
+  border:1px solid #c3c9d4 !important;
+  border-radius:3px !important;
+  color:#1c2733 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+}
+html.dark button, html.dark .btn {
+  background: linear-gradient(180deg,#245a7a 0%,#1a486a 100%) !important;
+  color:#eaf3ff !important; border-color:#33404f !important;
+}
+button:hover, .btn:hover, input[type="button"]:hover { border-color:#46b54a !important; }
+button.primary, .btn-primary, .btn-success, #addTorrent, #startSearchButton {
+  background: linear-gradient(180deg,#80ef54 0%,#46b54a 100%) !important;
+  border-color:#609e67 !important; color:#fff !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.2);
+}
+
+/* ---- window chrome (.mocha): blue title bar ---- */
+.mocha { border:1px solid #c3c9d4 !important; border-radius:5px;
+         box-shadow:0 8px 24px rgba(30,95,176,.28) !important; background:#fff !important; }
+html.dark .mocha { background:#12161d !important; border-color:#33404f !important; }
+.mochaTitlebar {
+  background: linear-gradient(180deg,#8ac5fe 0%,#3b92ea 60%,#2f84dd 100%) !important;
+  color:#fff !important; border-bottom:1px solid #1e5fb0 !important;
+  border-radius:4px 4px 0 0;
+}
+.mochaTitlebar h3 { color:#fff !important; text-shadow:0 1px 1px rgba(0,0,0,.25); }
+.mochaToolbar { background: linear-gradient(180deg,#eef2f7 0%,#e4e9f4 100%) !important;
+                border-bottom:1px solid #c3c9d4; }
+html.dark .mochaToolbar { background:#1a212b !important; }
+.mochaContent { background:#fff !important; } html.dark .mochaContent { background:#12161d !important; }
+
+/* ---- footer / status bar: hidden (frame has its own) ---- */
+/* #desktopFooter and #desktopFooterWrapper are hidden via display:none in the
+   "hide qBittorrent's redundant chrome" rule below. */
+
+/* ---- context menus ---- */
+.contextMenu { background:#fff !important; border:1px solid #c3c9d4 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.15); }
+html.dark .contextMenu { background:#1a212b !important; border-color:#33404f !important; }
+.contextMenu li a { color:#1c2733; } html.dark .contextMenu li a { color:#e8edf3; }
+.contextMenu li a:hover { background:#d6ecf8 !important; }
+.contextMenu .separator { border-top:1px solid #c3c9d4; }
+
+/* ---- badges / counts ---- */
+.badge, .count, .counter { background:#46b54a !important; color:#fff !important; border-radius:10px; font-weight:600; }
+
+/* ---- scrollbars (webkit) ---- */
+::-webkit-scrollbar { width:14px; height:14px; }
+::-webkit-scrollbar-track { background:#eef2f7; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,#3b92ea,#2f84dd);
+  border:3px solid #eef2f7; border-radius:8px;
+}
+::-webkit-scrollbar-thumb:hover { background:#1e5fb0; }
+html.dark ::-webkit-scrollbar-track { background:#1a212b; }
+html.dark ::-webkit-scrollbar-thumb { border-color:#1a212b; }
+
+/* ---- selection ---- */
+::selection { background:#46b54a; color:#fff; }
+
+/* ==========================================================================
+   LIMEWIRE FRAME — hide qBittorrent's redundant chrome when embedded.
+   The frame (index.html) supplies its own title bar, menu, search, filter
+   sidebar, control bar and status bar, so qBittorrent's own menu bar,
+   top toolbar and tab strip would double up. Hide those; KEEP the
+   functional torrent table (#pageWrapper), filters and properties.
+   ========================================================================== */
+/* Hide qBittorrent's redundant chrome — the frame provides these.
+   Use display:none (not revert) so they're actually hidden.
+   KEEP #Filters visible — the LimeWire Status panel clicks qBittorrent's
+   native filter links inside it. */
+#desktopHeader,        /* qBittorrent menu bar + top toolbar */
+#desktopNavbar,        /* the menu row: File / Edit / View / Tools / Help */
+#mainWindowTabs,       /* qBittorrent's own Transfers/Log/… tab strip */
+#desktopFooter,        /* qBittorrent's own status bar — the frame has one */
+#desktopFooterWrapper, /* wrapper for the footer */
+#filtersColumn,        /* qBittorrent's native filter sidebar — frame has its own */
+#filtersColumn_handle, /* column resize handle for the filter sidebar */
+#properties            /* properties panel (if open) — not needed in frame */
+{
+  display: none !important;
+}
+
+/* ── LimeWire-style empty state when there are no torrents yet ── */
+#pageWrapper:empty::before {
+  content: "No transfers\00a0\00a0\00a0 —  add a torrent to begin";
+  display: block;
+  padding: 40px 24px;
+  color: #8a92a0;
+  font: 13px/1.5 "Lucida Grande","Segoe UI",Tahoma,sans-serif;
+  text-align: center;
+  letter-spacing: .3px;
+}
+#pageWrapper:empty {
+  min-height: 120px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(70,181,74,.05), transparent 60%),
+    #fff;
+}
+
+/* ---- compact context menus (shrink) ---- */
+.contextMenu { padding:2px 0 !important; }
+.contextMenu li { padding:1px 0 !important; }
+.contextMenu li a { padding:3px 18px !important; font-size:12px !important; line-height:1.3 !important; }
+.contextMenu li img { width:14px !important; height:14px !important; }

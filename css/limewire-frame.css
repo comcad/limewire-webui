@@ -1,0 +1,215 @@
+/* ==========================================================================
+   LimeWire '08 frame  (css/limewire-frame.css)
+   Recreates the real LimeWire 4.18.3 (2008) Windows-XP window chrome,
+   palette, and layout. The qBittorrent WebUI lives inside .qbt-frame.
+
+   Palette sampled from the real screenshot (Limewire2008.PNG):
+     XP Luna title bar      sky->royal blue gradient
+     brand accent           medium green  #2e8b34 / #46b54a
+     gold filter headers    #ffd156 -> #ffbb33 (amber)
+     XP panel face          light gray    #ececec / #f0f0f0
+     selection / progress   medium blue   #3b92ea
+     status arrows          green
+   ========================================================================== */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --luna-1:#8dc6fc; --luna-2:#5b9ee8; --luna-3:#2f84dd; --luna-edge:#1e5fb0;
+  --green:#2e8b34; --green-bright:#46b54a; --green-deep:#1f6e28;
+  --gold-1:#ffe08a; --gold-2:#ffd156; --gold-3:#ffbb33; --gold-edge:#c98a1a;
+  --face:#ececec; --face-2:#f4f4f4; --face-edge:#b9b9b9;
+  --blue:#3b92ea; --blue-deep:#2f84dd; --link:#1a5fb4;
+  --text:#111; --text-soft:#555;
+}
+html,body{height:100%;background:#0b62c4;font-family:"Tahoma","Segoe UI",Verdana,Arial,sans-serif;font-size:11px;color:var(--text);overflow:hidden}
+
+/* ─────────── XP window shell ─────────── */
+.xp-window{
+  position:absolute; inset:6px;
+  display:flex; flex-direction:column;
+  background:var(--face);
+  border:3px solid var(--luna-3);
+  border-radius:5px 5px 3px 3px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.15);
+}
+
+/* ─────────── title bar ─────────── */
+.titlebar{
+  height:30px; flex:0 0 30px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(180deg,#b8e0ff 0%,#8dc6fc 18%,#5b9ee8 62%,#2f84dd 100%);
+  border-bottom:1px solid var(--luna-edge);
+  border-radius:3px 3px 0 0;
+  padding:0 6px 0 8px;
+  user-select:none;
+}
+.tb-left{display:flex;align-items:center;gap:7px}
+.tb-logo{width:20px;height:20px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+.tb-title{color:#fff;font-weight:bold;font-size:13px;text-shadow:0 1px 2px rgba(0,0,0,.45);letter-spacing:.2px}
+.tb-btns{display:flex;gap:2px}
+.capbtn{
+  width:23px;height:22px;border:1px solid #1c4f8f;border-radius:3px;
+  background:linear-gradient(180deg,#6fb0f5,#2f84dd 55%,#256fc2);
+  color:#fff;font-size:12px;line-height:1;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;
+}
+.capbtn:hover{background:linear-gradient(180deg,#8ec4ff,#3b92ea 55%,#2f84dd)}
+.capbtn:active{box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.cap-close{background:linear-gradient(180deg,#ff9d8f,#e8573f 55%,#d43f28);border-color:#a53320}
+.cap-close:hover{background:linear-gradient(180deg,#ffb5a9,#ef6a52 55%,#d43f28)}
+.capbtn span{font-weight:bold}
+
+/* ─────────── menu bar ─────────── */
+.menubar{
+  flex:0 0 auto; display:flex; gap:2px;
+  padding:2px 6px; background:linear-gradient(180deg,#f6f6f6,#e6e6e6);
+  border-bottom:1px solid var(--face-edge);
+  user-select:none;
+}
+.menu{padding:2px 8px;border-radius:2px;cursor:default;color:#111}
+.menu:hover,.menu:focus{background:var(--blue);color:#fff;outline:none}
+.menu:first-letter{text-decoration:underline dotted;text-underline-offset:2px}
+
+/* ─────────── search / toolbar + brand ─────────── */
+.searchbar{
+  flex:0 0 auto; display:flex; align-items:center; gap:10px;
+  padding:5px 10px;
+  background:linear-gradient(180deg,#eef4fb,#dce7f5);
+  border-bottom:1px solid #b9c8dc;
+}
+.sb-search{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.sb-ico{width:18px;height:18px;opacity:.85}
+.sb-input{
+  flex:1 1 auto; width:340px; max-width:42vw;
+  padding:4px 8px; font-size:12px; color:#111;
+  background:#fff; border:1px solid #9fb2c9; border-radius:2px;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.12);
+}
+.sb-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 2px rgba(70,181,74,.3)}
+.sb-go{
+  width:26px;height:24px;border:1px solid var(--green-deep);border-radius:2px;
+  background:linear-gradient(180deg,#6fe08a,#2e8b34);color:#fff;font-size:12px;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+}
+.sb-go:active{box-shadow:inset 0 1px 3px rgba(0,0,0,.3)}
+.sb-tools{display:flex;gap:4px;flex:1}
+.tool{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:transparent;border:1px solid transparent;border-radius:3px;
+  padding:2px 7px;cursor:pointer;color:#222;font-size:10px;
+}
+.tool img{width:20px;height:20px}
+.tool:hover{background:#fff;border-color:var(--face-edge);box-shadow:inset 0 1px 0 #fff}
+.tool:active{background:#e2e2e2}
+.sb-brand{display:flex;align-items:center;gap:6px;margin-left:auto}
+.brand-logo{width:26px;height:26px}
+.brand-word{font-family:"Trebuchet MS","Segoe UI",sans-serif;font-weight:bold;font-size:19px;color:var(--green);letter-spacing:.3px;text-shadow:0 1px 0 #fff}
+
+/* ─────────── tab strip ─────────── */
+.tabstrip{
+  flex:0 0 auto; display:flex; align-items:flex-end; gap:0;
+  padding:4px 10px 0; background:linear-gradient(180deg,#e2e8f0,#d5dde9);
+  border-bottom:1px solid #b3bfcf;
+}
+.tab{
+  position:relative; display:flex;align-items:center;gap:7px;
+  padding:4px 14px 5px 12px; margin-bottom:-1px;
+  background:linear-gradient(180deg,#ffffff,#eef4fb);
+  border:1px solid #aebbd0;border-bottom:1px solid #fff;
+  border-radius:4px 4px 0 0;
+  color:var(--blue-deep); font-weight:bold; font-size:11px;
+  box-shadow:inset 0 1px 0 #fff;
+}
+.tab-close{color:#c0392b;font-size:10px;cursor:pointer}
+.tab-close:hover{color:#7a1f14}
+.tab-ghost{flex:1}
+
+/* ─────────── main area ─────────── */
+.main{flex:1 1 auto; display:flex; min-height:0}
+
+/* left filter column (LimeWire gold headers) */
+.filtercol{
+  flex:0 0 220px; width:220px;
+  background:var(--face); border-right:1px solid var(--face-edge);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.filter-head{
+  display:flex;align-items:center;justify-content:center;
+  padding:4px 8px; font-weight:bold; font-size:11px; color:#222;
+  background:linear-gradient(180deg,var(--gold-1),var(--gold-2) 55%,var(--gold-3));
+  border-top:1px solid #fff;border-bottom:1px solid var(--gold-edge);
+  text-shadow:0 1px 0 rgba(255,255,255,.5);
+}
+.filter-list{list-style:none;padding:3px 0;background:#fff;border-bottom:1px solid var(--face-edge);max-height:200px;overflow:auto}
+.fitem{display:flex;align-items:center;gap:6px;padding:3px 10px;cursor:default;color:#111}
+.fitem img{width:14px;height:14px;opacity:.8}
+.fitem .cnt{margin-left:auto;color:#777;font-size:10px}
+.fitem:hover{background:#eaf3ff}
+.fitem.sel{background:linear-gradient(180deg,#d6f0e0,#cfe9f7);box-shadow:inset 3px 0 0 var(--green-bright)}
+.fitem.sel b{color:var(--green-deep)}
+.backbtn{
+  margin:8px; padding:4px 10px;
+  background:linear-gradient(180deg,#fdfdfd,#e4e4e4);
+  border:1px solid var(--face-edge); border-radius:3px;
+  font-size:11px; color:#222; cursor:pointer;
+  box-shadow:inset 0 1px 0 #fff;
+}
+.backbtn:hover{background:linear-gradient(180deg,#fff,#eaeaea)}
+.backbtn:active{box-shadow:inset 0 1px 3px rgba(0,0,0,.2)}
+
+/* qBittorrent host + iframe */
+.qbt-host{flex:1 1 auto; min-width:0; background:#fff; display:flex; flex-direction:column}
+.qbt-frame{flex:1 1 auto; width:100%; border:0; background:#fff; display:block}
+
+/* ─────────── bottom control bar ─────────── */
+.ctrlbar{
+  flex:0 0 auto; display:flex; gap:4px; align-items:center;
+  padding:4px 10px;
+  background:linear-gradient(180deg,#f2f2f2,#e0e0e0);
+  border-top:1px solid #fff; border-bottom:1px solid var(--face-edge);
+}
+.cbtn{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:transparent;border:1px solid transparent;border-radius:3px;
+  padding:3px 9px;cursor:pointer;color:#555;font-size:10px;
+}
+.cbtn img{width:20px;height:20px;filter:grayscale(.15)}
+.cbtn:hover{background:#fff;border-color:var(--face-edge)}
+
+/* ─────────── status bar ─────────── */
+.statusbar{
+  flex:0 0 30px; display:flex; align-items:center; gap:14px;
+  padding:0 12px;
+  background:linear-gradient(180deg,#f4f4f4,#dedede);
+  border-top:1px solid #fff;
+  font-size:11px;
+}
+.st-left{display:flex;align-items:center;gap:10px}
+.st-signal{display:inline-flex;align-items:flex-end;gap:1px;height:12px}
+.st-signal i{width:3px;background:var(--green);display:block}
+.st-signal i:nth-child(1){height:4px}.st-signal i:nth-child(2){height:7px}
+.st-signal i:nth-child(3){height:10px}.st-signal i:nth-child(4){height:12px}
+.st-disc{
+  width:16px;height:16px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#6fe08a,#2e8b34);
+  color:#fff;font-weight:bold;font-size:10px;line-height:16px;text-align:center;
+  box-shadow:inset 0 -2px 3px rgba(0,0,0,.25);
+}
+.st-speed{display:inline-flex;align-items:center;gap:4px;color:#222}
+.st-speed img{width:13px;height:13px}
+.st-speed b{color:var(--green-deep)}
+.st-center{flex:1;text-align:center}
+.pro-link{color:var(--link);text-decoration:underline;cursor:pointer}
+.pro-link b{color:var(--green-deep);text-decoration:underline}
+.st-player{display:flex;align-items:center;gap:6px}
+.player-bar{width:120px;height:8px;border:1px solid #9a9a9a;border-radius:4px;background:#cfcfcf;overflow:hidden;display:inline-block}
+.player-fill{display:block;height:100%;width:12%;background:linear-gradient(180deg,#6fe08a,#2e8b34)}
+.pglyph{color:#777;font-size:12px;cursor:pointer}
+.pglyph:hover{color:#333}
+.player-label{color:#777;font-size:10px;margin-left:2px}
+
+/* scrollbars */
+::-webkit-scrollbar{width:14px;height:14px}
+::-webkit-scrollbar-track{background:#e6e6e6}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#c9c9c9,#a8a8a8);border:3px solid #e6e6e6;border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#b5b5b5,#9a9a9a)}
