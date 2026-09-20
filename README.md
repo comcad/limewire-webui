@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>A pixel-level recreation of the classic LimeWire 2008 desktop client</strong><br>
+  <strong>A recreation of the classic LimeWire 2008 desktop client</strong><br>
   wrapping a fully functional qBittorrent v5 WebUI.
 </p>
 
@@ -23,7 +23,7 @@ A working qBittorrent WebUI that looks and feels like the 2008 LimeWire desktop 
 
 - **XP-Luna blue chrome** — glossy title bar with green LimeWire wordmark
 - **Classic menu bar** — File · View · Navigation · Resources · Tools · Filters · Help
-- **Search box** + toolbar buttons (Monitor, Connections, Library, Console, Logging, New@Lime)
+- **Search box** + toolbar buttons (Monitor, Connections, Library, New@Lime)
 - **Gold filter panels** — Status (live), Media, Category
 - **Skinned transfer list** — full qBittorrent functionality (add, start, stop, properties, trackers, peers, files, RSS, search, categories, tags, speed limits, log)
 - **Control bar** — Clear / Resume / Pause / Clear Inactive
@@ -35,7 +35,8 @@ All qBittorrent features work. The frame is purely cosmetic — no iframes, no c
 
 | 2008 LimeWire | This UI |
 |---|---|
-| *(the classic green leaf, blue chrome, gold panels)* | *(same layout, same colors, live qBittorrent underneath)* |
+| <img width="640" height="481" alt="kwingzjjgwie1 jpg" src="https://github.com/user-attachments/assets/55d7e7a4-dc7e-4afa-9756-3363c3a290c6" />| <img width="832" height="510" alt="Screenshot 2026-09-19 at 9 43 59 PM" src="https://github.com/user-attachments/assets/1c2444c6-f708-4e41-824b-6c138d5a09ae" />
+ |
 
 ## Install
 
@@ -74,10 +75,10 @@ LimeWire-WebUI/
 
 These are decorative (qBittorrent's WebUI has no API for them):
 
-- **Search box** — no global file-search API in the WebUI
+- **Search box** — no global file-search API in the WebUI (work in progress)
 - **Media / Category panels** — no such breakdown in the WebUI (Status panel IS live)
 - **Media Player strip** — LimeWire nostalgia
-- **Frame buttons** (Monitor/Connections/…) — decorative unless wired in `scripts/limewire.js`
+- **Frame buttons** (Monitor/Connections/…)
 
 Live values (speeds, peer count) populate from the WebAPI once logged in.
 
