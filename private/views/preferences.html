@@ -2855,8 +2855,10 @@ Use ';' to split multiple entries. Can use wildcard '*'.)QBT_TR[CONTEXT=OptionsD
                     document.getElementById("ignoreSSLErrors").checked = pref.ignore_ssl_errors;
                     document.getElementById("pythonExecutablePath").value = pref.python_executable_path;
                     document.getElementById("startPaused").checked = pref.start_paused;
-                    if (document.getElementById("sessionShutdownTimeout"))
-                        document.getElementById("sessionShutdownTimeout").value = pref.shutdown_timeout;
+                    if (document.getElementById("sessionShutdownTimeout")) {
+                        const stVal = pref.shutdown_timeout;
+                        document.getElementById("sessionShutdownTimeout").value = (stVal === undefined || stVal === null) ? "" : stVal;
+                    }
                     // libtorrent section
                     document.getElementById("bdecodeDepthLimit").value = pref.bdecode_depth_limit;
                     document.getElementById("bdecodeTokenLimit").value = pref.bdecode_token_limit;
