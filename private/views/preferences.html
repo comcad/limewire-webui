@@ -2855,7 +2855,8 @@ Use ';' to split multiple entries. Can use wildcard '*'.)QBT_TR[CONTEXT=OptionsD
                     document.getElementById("ignoreSSLErrors").checked = pref.ignore_ssl_errors;
                     document.getElementById("pythonExecutablePath").value = pref.python_executable_path;
                     document.getElementById("startPaused").checked = pref.start_paused;
-                    document.getElementById("sessionShutdownTimeout").value = pref.shutdown_timeout;
+                    if (document.getElementById("sessionShutdownTimeout"))
+                        document.getElementById("sessionShutdownTimeout").value = pref.shutdown_timeout;
                     // libtorrent section
                     document.getElementById("bdecodeDepthLimit").value = pref.bdecode_depth_limit;
                     document.getElementById("bdecodeTokenLimit").value = pref.bdecode_token_limit;
@@ -3365,7 +3366,7 @@ Use ';' to split multiple entries. Can use wildcard '*'.)QBT_TR[CONTEXT=OptionsD
 
             settings["start_paused"] = document.getElementById("startPaused").checked;
 
-            const shutdownTimeoutStr = document.getElementById("sessionShutdownTimeout").value.trim();
+            const shutdownTimeoutStr = document.getElementById("sessionShutdownTimeout")?.value?.trim() ?? "";
             const shutdownTimeout = (shutdownTimeoutStr === "") ? -1 : Number.parseInt(shutdownTimeoutStr, 10);
             if (Number.isNaN(shutdownTimeout) || (shutdownTimeout < -1) || (shutdownTimeout > 2147483647)) {
                 alert("QBT_TR(BitTorrent session shutdown timeout must be between -1 and 2147483647.)QBT_TR[CONTEXT=HttpServer]");
